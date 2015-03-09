@@ -109,7 +109,7 @@ Calendar.prototype = {
 			this.year += 1;
 			this.changeDate();
 		},
-		'pre-year': function() {
+		'prev-year': function() {
 			this.year -= 1;
 			this.changeDate();
 		}
