@@ -85,12 +85,8 @@ Calendar.prototype = {
 			return false;
 		});
 		if (_this.settings.target) {
-			$(_this.settings.target).click(function() {
-				if (_this.isShow) {
-					_this.hide();
-				} else {
-					_this.show();
-				}
+			$(_this.settings.target).bind('click',function() {
+				_this.show();
 				return false;
 			});
 			$(document).click(function() {
