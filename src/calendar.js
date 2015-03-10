@@ -17,6 +17,9 @@ function Calendar() {
 Calendar.prototype = {
 	separator: '-',
 	defaultDate: new Date(),
+	setRange:function(range){
+		this.range = $.extend([null, null], range);
+	},
 	init: function(settings) {
 		$('body').append('<div class="ui-calendar" id="' + this.id + '"><div class="ui-calendar-pannel" data-role="pannel"><span class="ui-calendar-control" data-role="prev-year">&lt;&lt;</span><span class="ui-calendar-control" data-role="prev-month">&lt;</span><span class="ui-calendar-control month" data-role="current-month"></span><span class="ui-calendar-control year" data-role="current-year"></span><span class="ui-calendar-control" data-role="next-month">&gt;</span><span class="ui-calendar-control" data-role="next-year">&gt;&gt;</span></div><div class="calendar-header"></div><div class="c_days"></div></div>');
 		this.calendarContainer = $('#' + this.id);
@@ -24,8 +27,8 @@ Calendar.prototype = {
 		if (this.settings.target && $(this.settings.target).size()) {
 			if ($(this.settings.target)[0].nodeType === 1) {
 				this.settings.focusDate = this.settings.focusDate || $(this.settings.target).val();
-			}else{
-				this.settings.focusDate = this.settings.focusDate || $(this.settings.target).prev().val()||'';
+			} else {
+				this.settings.focusDate = this.settings.focusDate || $(this.settings.target).prev().val() || '';
 			}
 		}
 		if (this.settings.focusDate) {
@@ -33,6 +36,7 @@ Calendar.prototype = {
 			this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
 		}
 		this.date = this.defaultDate;
+		this.setRange(this.settings.range)
 		this.formatDate();
 		this.renderHeader();
 		this.bindEvent();
@@ -46,10 +50,12 @@ Calendar.prototype = {
 		this.calendarContainer.show();
 		this.isShow = true;
 		this.setPosition();
+		this.settings.show && this.settings.show(this.calendarContainer);
 	},
 	hide: function() {
 		this.calendarContainer.hide();
 		this.isShow = false;
+		this.settings.hide && this.settings.hide(this.calendarContainer);
 	},
 	setPosition: function() {
 		var x = 0,
@@ -75,6 +81,10 @@ Calendar.prototype = {
 			return false;
 		})
 		$('.c_days', _this.calendarContainer).delegate('li', 'click', function() {
+			_this.settings.beforeSelect && _this.settings.beforeSelect(_this.date, _this.calendarContainer);
+			if ($(this).hasClass('disabled')) {
+				return false;
+			};
 			var value = $(this).data('value');
 			var focusDateArr = value.split(_this.separator);
 			_this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
@@ -156,15 +166,27 @@ Calendar.prototype = {
 		list += '</ul>';
 		$('#' + this.id).find(".c_days").html(list);
 	},
-	_getDay: function(start, dayNum, cls, date) {
+	_getDay: function(startNum, dayNum, cls, date) {
 		var list = '';
-		for (var i = start; i <= dayNum; i++) {
+		var start = this.range[0],
+			end = this.range[1];
+		if (start) {
+			start = Date.parse(start);
+		};
+		if (end) {
+			end = Date.parse(end);
+		}
+		for (var i = startNum; i <= dayNum; i++) {
 			var className = cls || "";
 			var datavalue = date.getFullYear() + this.separator + this._getTowNum(date.getMonth() + 1) + this.separator;
 			datavalue += this._getTowNum(i);
 			var d = new Date(date.getFullYear(), date.getMonth(), i);
-			if (d.getTime() == this.defaultDate.getTime()) {
+			var time = d.getTime();
+			if (time == this.defaultDate.getTime()) {
 				className += ' focus';
+			}
+			if ((start && time < start) || (end && time > end)) {
+				className += " disabled";
 			}
 			list += '<li class="' + className + '" data-value="' + datavalue + '">' + i + '</li>';
 		};
