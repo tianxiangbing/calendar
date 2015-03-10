@@ -21,8 +21,12 @@ Calendar.prototype = {
 		$('body').append('<div class="ui-calendar" id="' + this.id + '"><div class="ui-calendar-pannel" data-role="pannel"><span class="ui-calendar-control" data-role="prev-year">&lt;&lt;</span><span class="ui-calendar-control" data-role="prev-month">&lt;</span><span class="ui-calendar-control month" data-role="current-month"></span><span class="ui-calendar-control year" data-role="current-year"></span><span class="ui-calendar-control" data-role="next-month">&gt;</span><span class="ui-calendar-control" data-role="next-year">&gt;&gt;</span></div><div class="calendar-header"></div><div class="c_days"></div></div>');
 		this.calendarContainer = $('#' + this.id);
 		this.settings = $.extend({}, this.settings, settings);
-		if (this.settings.target && $(this.settings.target).size() && $(this.settings.target)[0].nodeType === 1) {
-			this.settings.focusDate = this.settings.focusDate || $(this.settings.target).val();
+		if (this.settings.target && $(this.settings.target).size()) {
+			if ($(this.settings.target)[0].nodeType === 1) {
+				this.settings.focusDate = this.settings.focusDate || $(this.settings.target).val();
+			}else{
+				this.settings.focusDate = this.settings.focusDate || $(this.settings.target).prev().val()||'';
+			}
 		}
 		if (this.settings.focusDate) {
 			var focusDateArr = this.settings.focusDate.split(this.separator);
@@ -85,7 +89,7 @@ Calendar.prototype = {
 			return false;
 		});
 		if (_this.settings.target) {
-			$(_this.settings.target).bind('click',function() {
+			$(_this.settings.target).bind('click', function() {
 				_this.show();
 				return false;
 			});
