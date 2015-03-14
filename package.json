@@ -1,0 +1,15 @@
+{
+  "family": "tianxiangbing",
+  "name": "calendar",
+  "description": "js 日历",
+  "version": "1.0.0",
+  "author": {
+    "name": "田想兵",
+    "url": "http://www.lovewebgames.com/jsmodule/calendar.html"
+  },
+  "devDependencies": {
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-uglify": "~0.4.0"
+  }
+}
