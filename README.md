@@ -1,6 +1,6 @@
 # calendar
 js日历控件
-例子见[DEMO](http://tianxiangbing.github.io/calendar)  
+例子见[DEMO](http://www.lovewebgames.com/jsmodule/calendar.html)  
 #用法
 		<input type="text" id="calendar" value="2015-04-15"/>
 		<script src="../src/jquery-1.9.1.min.js"></script>
