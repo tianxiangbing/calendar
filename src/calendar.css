@@ -1,4 +1,4 @@
-﻿.ui-calendar{_border:none;zoom:1;border:1px solid #ccc;background-color:#f9f9f9;position: absolute;color:#666;font-family: arial, 'Hiragino Sans GB', sans-serif;position:absolute;}
+﻿.ui-calendar{border:1px solid #ccc;background-color:#f9f9f9;position: absolute;color:#666;font-family: arial, 'Hiragino Sans GB', sans-serif;position:absolute;}
 .ui-calendar ul{list-style: none;overflow: hidden;margin:0;padding:0;background-color: #fff;width:210px;}
 .ui-calendar li{list-style: none;float:left;width:30px;height:26px;line-height:26px;text-align: center;cursor: pointer;}
 .ui-calendar li:hover,.ui-calendar-pannel span:hover{background-color:#f2f2f2;}
