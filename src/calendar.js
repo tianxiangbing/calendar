@@ -17,7 +17,7 @@ function Calendar() {
 Calendar.prototype = {
 	separator: '-',
 	defaultDate: new Date(),
-	setRange:function(range){
+	setRange: function(range) {
 		this.range = $.extend([null, null], range);
 	},
 	init: function(settings) {
@@ -35,6 +35,8 @@ Calendar.prototype = {
 			var focusDateArr = this.settings.focusDate.split(this.separator);
 			this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
 		}
+		var zIndex = this.settings.zIndex || 1;
+		this.calendarContainer.css('zIndex', zIndex);
 		this.date = this.defaultDate;
 		this.setRange(this.settings.range)
 		this.formatDate();
@@ -80,7 +82,7 @@ Calendar.prototype = {
 			_this.go[$(this).data('role')].call(_this);
 			return false;
 		})
-		$(_this.calendarContainer).click(function(){
+		$(_this.calendarContainer).click(function() {
 			return false;
 		});
 		$('.c_days', _this.calendarContainer).delegate('li', 'click', function() {

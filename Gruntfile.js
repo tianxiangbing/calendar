@@ -21,7 +21,7 @@ module.exports = function(grunt) {
 	};
 	config.uglify = {
 		options: {
-			banner: '/*! <%= pkg.name %> <%=pkg.family%> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+			banner: '/*! <%= pkg.name %> <%=pkg.family%> <%=pkg.author.url%> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 		},
 		build: {
 			src: ['src/<%= pkg.name %>.js', '!*.min.css'],
