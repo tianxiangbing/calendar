@@ -6,10 +6,19 @@ js日历控件
 		<script src="../src/jquery-1.9.1.min.js"></script>
 		<script src="../src/calendar.js"></script>
 		<script>
-		var calendar = new Calendar();
-		calendar.init({target :$('#calendar')});
+			var calendar = new Calendar();
+			calendar.init({target :$('#calendar')});
 		</script>
+#或者
+		
+		<input type="text" class="calendar" value="2015-03-14"/>
+		<input type="text" class="calendar" value="2015-03-18"/>
 
+		<script src="../dist/jquery-1.9.1.min.js"></script>
+		<script src="../dist/calendar-jquery.min.js"></script>
+		<script>
+			$(".calendar").Calendar();
+		</script>
 #属性和方法
 ##属性
 ###date:
@@ -39,3 +48,4 @@ js日历控件
 		选中后的回调事件，参数为(a)时间对象 ,(b)日历容器
 ####beforeSelect:function(a,b)
 		选择前触发方法，参数为(a)时间对象 ,(b)日历容器
+		
