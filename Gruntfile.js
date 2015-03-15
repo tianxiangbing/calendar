@@ -10,7 +10,7 @@ var fs = require("fs");
 var path = require("path");
 module.exports = function(grunt) {
 
-	var publishVersion = '1.0.0';
+	var publishVersion = '1.0.1';
 
 	var today = new Date();
 
@@ -47,18 +47,34 @@ module.exports = function(grunt) {
 		main: {
 			expand: true,
 			cwd: 'src/',
-			src: ['*.js','*.css'],
+			src: ['*.js', '*.css'],
 			dest: 'dist/',
 			flatten: true,
 			filter: 'isFile',
 		},
+	};
+	config.concat = {
+		options: {
+			stripBanners: true,
+			banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%=pkg.family%> - <%=pkg.author.url%>' +
+				'<%= grunt.template.today("yyyy-mm-dd") %> */',
+		},
+		dist: {
+			src: ['src/calendar.js', 'src/calendar-jquery.js'],
+			dest: 'dist/calendar-jquery.js',
+		},
+	};
+	config.uglify.uplifyJquery = {
+		src: ['dist/calendar-jquery.js'],
+		dest: 'dist/calendar-jquery.min.js'
 	};
 	grunt.initConfig(config);
 	// 加载包含 "uglify" 任务的插件。
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 
 	// 默认被执行的任务列表。
-	grunt.registerTask('default', ['uglify', 'cssmin','copy']);
+	grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'concat', 'uglify:uplifyJquery']);
 };

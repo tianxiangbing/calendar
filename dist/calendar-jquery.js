@@ -1,11 +1,4 @@
-﻿/*
- * Created with Sublime Text 2.
- * User: 田想兵
- * Date: 2015-03-09
- * Time: 17:02:02
- * Contact: 55342775@qq.com
- */
-function Calendar() {
+/*! calendar - v1.0.0 - tianxiangbing - http://www.lovewebgames.com/jsmodule/calendar.html2015-03-15 */function Calendar() {
 	this.monthArr = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
 	this.dayArr = ['日', '一', '二', '三', '四', '五', '六'];
 	var rnd = Math.random().toString().replace('.', '');
@@ -202,3 +195,14 @@ Calendar.prototype = {
 		return ('0' + n.toString()).substr(-2);
 	}
 };
+(function($) {
+	$.fn.Calendar = function(settings) {
+		var list = [];
+		$(this).each(function(){
+			var calendar = new Calendar();
+			var options = $.extend({target :$(this)},settings);
+			calendar.init(options);
+		});
+		return list;
+	}
+})(jQuery);

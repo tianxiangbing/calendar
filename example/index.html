@@ -7,12 +7,16 @@
 	<body>
 
 		<input type="text" id="calendar" value="2015-03-15"/>
+		<input type="text" class="calendar" value="2015-03-14"/>
+		<input type="text" class="calendar" value="2015-03-18"/>
 
 		<script src="../dist/jquery-1.9.1.min.js"></script>
-		<script src="../dist/calendar.min.js"></script>
+		<script src="../dist/calendar.js"></script>
+		<script src="../dist/calendar-jquery.min.js"></script>
 		<script>
 		var calendar = new Calendar();
 		calendar.init({target :$('#calendar'),range:['2015-3-5','2015-3-25']});
+		$(".calendar").Calendar();
 		</script>
 	</body>
 </html>

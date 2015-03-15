@@ -105,6 +105,7 @@ Calendar.prototype = {
 		});
 		if (_this.settings.target) {
 			$(_this.settings.target).bind('click', function() {
+				$(document).trigger('click');
 				_this.show();
 				return false;
 			});
