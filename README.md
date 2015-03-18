@@ -53,8 +53,8 @@ js日历控件
 ```
 ## Release History
 
- * 2015-03-15   v1.0.1   添加jquery插件式写法
-
+1. 2015-03-15     v1.0.1      添加jquery插件式写法
+2. 2015-03-12     v1.0.0      
 ---
 
 Task submitted by [田想兵](http://www.lovewebgames.com)
