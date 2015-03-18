@@ -8,10 +8,13 @@
 (function($) {
 	$.fn.Calendar = function(settings) {
 		var list = [];
-		$(this).each(function(){
+		$(this).each(function() {
 			var calendar = new Calendar();
-			var options = $.extend({target :$(this)},settings);
+			var options = $.extend({
+				target: $(this)
+			}, settings);
 			calendar.init(options);
+			list.push(calendar);
 		});
 		return list;
 	}

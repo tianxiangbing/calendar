@@ -9,16 +9,12 @@
 var fs = require("fs");
 var path = require("path");
 module.exports = function(grunt) {
-
-	var publishVersion = '1.0.1';
-
 	var today = new Date();
-
 	var config = {
 		version: [today.getFullYear(), today.getMonth() + 1, today.getDate(), today.getTime()].join('.'),
-		pkg: grunt.file.readJSON('package.json'),
-		publishVersion: publishVersion
+		pkg: grunt.file.readJSON('package.json')
 	};
+	config.publishVersion = config.pkg.version;
 	config.uglify = {
 		options: {
 			banner: '/*! <%= pkg.name %> <%=pkg.family%> <%=pkg.author.url%> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -56,8 +52,8 @@ module.exports = function(grunt) {
 	config.concat = {
 		options: {
 			stripBanners: true,
-			banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%=pkg.family%> - <%=pkg.author.url%>' +
-				'<%= grunt.template.today("yyyy-mm-dd") %> */',
+			banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%=pkg.family%> - <%=pkg.author.url%> ' +
+				'<%= grunt.template.today("yyyy-mm-dd") %> */\n',
 		},
 		dist: {
 			src: ['src/calendar.js', 'src/calendar-jquery.js'],
