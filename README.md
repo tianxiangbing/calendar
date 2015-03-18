@@ -50,9 +50,8 @@ js日历控件
 		选择前触发方法，参数为(a)时间对象 ,(b)日历容器
 ***
 # Release History
-1. 2015-03-15     v1.0.1      添加jquery插件式写法
-2. 2015-03-12     v1.0.0      
+1. 2015-03-15  v1.0.1  添加jquery插件式写法
+2. 2015-03-12  v1.0.0  
 ---
-
 Task submitted by [田想兵](http://www.lovewebgames.com)
 
