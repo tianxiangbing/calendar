@@ -153,8 +153,10 @@ Calendar.prototype = {
 			if($(this).hasClass('ui-calendar-close')){
 				_this.hide();
 			}
-			if($(this).hasClass('ui-clear')){
+			if($(this).hasClass('js-clear')){
+				_this.dateArr =[];
 				$(_this.settings.target).val('');
+				_this.formatDate();
 			}
 		});
 		if (_this.settings.target) {
