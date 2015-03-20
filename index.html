@@ -31,7 +31,8 @@
           <h1>
 <a id="calendar" class="anchor" href="#calendar" aria-hidden="true"><span class="octicon octicon-link"></span></a>calendar</h1>
 
-<p>js日历控件</p>
+<p>js日历控件
+例子见<a href="http://www.lovewebgames.com/jsmodule/calendar.html">DEMO</a>  </p>
 
 <h1>
 <a id="用法" class="anchor" href="#%E7%94%A8%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>用法</h1>
@@ -40,8 +41,30 @@
     &lt;script src="../src/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
     &lt;script src="../src/calendar.js"&gt;&lt;/script&gt;
     &lt;script&gt;
-    var calendar = new Calendar();
-    calendar.init({target :$('#calendar')});
+        var calendar = new Calendar();
+        calendar.init({
+            target: $('#calendar'),
+            range: ['2015-3-5', '2015-3-25'],
+            multiple: true,
+            maxdays: 5,
+            overdays: function(a) {
+                alert('添加已达上限 ' + a + ' 天');
+            }
+        });
+    &lt;/script&gt;
+</code></pre>
+
+<h1>
+<a id="或者" class="anchor" href="#%E6%88%96%E8%80%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>或者</h1>
+
+<pre><code>    &lt;input type="text" class="calendar" value="2015-03-14"/&gt;
+    &lt;input type="text" class="calendar2" value="2015-03-18"/&gt;
+
+    &lt;script src="../dist/jquery-1.9.1.min.js"&gt;&lt;/script&gt;
+    &lt;script src="../dist/calendar-jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        $(".calendar").Calendar({toolbar:true});
+        $(".calendar2").Calendar();
     &lt;/script&gt;
 </code></pre>
 
@@ -129,6 +152,20 @@
 
 <pre><code>    选择前触发方法，参数为(a)时间对象 ,(b)日历容器
 </code></pre>
+
+<hr>
+
+<h1>
+<a id="release-history" class="anchor" href="#release-history" aria-hidden="true"><span class="octicon octicon-link"></span></a>Release History</h1>
+
+<ol>
+<li>2015-03-15  v1.0.1  添加jquery插件式写法</li>
+</ol>
+
+<h2>
+<a id="2-2015-03-12--v100--" class="anchor" href="#2-2015-03-12--v100--" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 2015-03-12  v1.0.0  </h2>
+
+<p>Task submitted by <a href="http://www.lovewebgames.com">田想兵</a></p>
         </section>
 
         <aside id="sidebar">
