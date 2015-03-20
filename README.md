@@ -7,17 +7,26 @@ js日历控件
 		<script src="../src/calendar.js"></script>
 		<script>
 			var calendar = new Calendar();
-			calendar.init({target :$('#calendar')});
+			calendar.init({
+				target: $('#calendar'),
+				range: ['2015-3-5', '2015-3-25'],
+				multiple: true,
+				maxdays: 5,
+				overdays: function(a) {
+					alert('添加已达上限 ' + a + ' 天');
+				}
+			});
 		</script>
 #或者
 		
 		<input type="text" class="calendar" value="2015-03-14"/>
-		<input type="text" class="calendar" value="2015-03-18"/>
+		<input type="text" class="calendar2" value="2015-03-18"/>
 
 		<script src="../dist/jquery-1.9.1.min.js"></script>
 		<script src="../dist/calendar-jquery.min.js"></script>
 		<script>
-			$(".calendar").Calendar();
+			$(".calendar").Calendar({toolbar:true});
+			$(".calendar2").Calendar();
 		</script>
 #属性和方法
 ##属性
