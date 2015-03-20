@@ -14,7 +14,7 @@ function Calendar() {
 	this.settings = {};
 	this.isShow = false;
 	this.autohide = true;
-	this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a>清空</a><a class="ui-calendar-close">关闭</a></div>';
+	this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a class="js-clear">清空</a><a class="ui-calendar-close">关闭</a></div>';
 	this.dateArr = [];
 	this.maxDays = 9999;
 };
@@ -155,6 +155,12 @@ Calendar.prototype = {
 				value = arr.join(',');
 				$(_this.settings.target).val(value);
 				_this.hide();
+			}
+			if($(this).hasClass('ui-calendar-close')){
+				_this.hide();
+			}
+			if($(this).hasClass('ui-clear')){
+				$(_this.settings.target).val('');
 			}
 		});
 		if (_this.settings.target) {

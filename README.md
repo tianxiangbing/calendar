@@ -32,6 +32,8 @@ js日历控件
 ##属性
 ###date:
 		当前日期.
+###toolbar:bool
+		是否显示下方操作栏
 ###separator:
 		日期分隔符，默认"-".
 ###id:
@@ -43,6 +45,7 @@ js日历控件
 ###monthArr:
 		["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
 ###isShow:是否显示中		
+###maxdays:多选时最大天数
 ##方法
 ###setRange:function(range)
 	设置日期可选范围的方法
@@ -57,6 +60,8 @@ js日历控件
 		选中后的回调事件，参数为(a)时间对象 ,(b)日历容器
 ####beforeSelect:function(a,b)
 		选择前触发方法，参数为(a)时间对象 ,(b)日历容器
+###overdays:function(daysnum)
+		超出限定天数时的回调（多选时）
 ***
 # Release History
 1. 2015-03-15  v1.0.1  添加jquery插件式写法
