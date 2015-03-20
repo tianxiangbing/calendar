@@ -1,12 +1,17 @@
-﻿.ui-calendar{width:212px;border:1px solid #ccc;background-color:#f9f9f9;position: absolute;color:#666;font-family: arial, 'Hiragino Sans GB', sans-serif;position:absolute;}
-.ui-calendar ul{list-style: none;overflow: hidden;margin:0;padding:0;background-color: #fff;width:210px;}
-.ui-calendar li{list-style: none;float:left;width:30px;height:26px;line-height:26px;text-align: center;cursor: pointer;}
-.ui-calendar li:hover,.ui-calendar-pannel span:hover{background-color:#f2f2f2;}
-.ui-calendar-pannel span{cursor: pointer; display: block;float: left;width:30px; text-align: center; height: 30px;line-height: 30px; }
-.ui-calendar-pannel .month,.ui-calendar-pannel .year{width:40px;}
-.ui-calendar-pannel .month{width:50px;}
-.preday,.nextday{color:#999;}
-.calendar-header{}
-.calendar-header b{width:30px;float:left;display:block; text-align: center;}
-.ui-calendar li.focus{background-color:#288df0;color:#FFF;}
-.ui-calendar li.disabled{background-color:#ccc;}
+﻿.ui-calendar { border: 1px solid #ccc; background-color: #f9f9f9; position: absolute; color: #666; font-family: arial, 'Hiragino Sans GB', sans-serif; position: absolute; }
+.ui-calendar ul { list-style: none; overflow: hidden; margin: 0; padding: 0; background-color: #fff; width: 210px; }
+.ui-calendar li { list-style: none; float: left; width: 30px; height: 26px; line-height: 26px; text-align: center; cursor: pointer; }
+.ui-calendar li:hover, .ui-calendar-pannel span:hover ,.ui-calendar-toolbar a:hover{ background-color: #f2f2f2; }
+.ui-calendar-pannel span { cursor: pointer; display: block; float: left; width: 30px; text-align: center; height: 30px; line-height: 30px; }
+.ui-calendar-pannel .month, .ui-calendar-pannel .year { width: 40px; }
+.ui-calendar-pannel .month { width: 50px; }
+.ui-calendar-toolbar { }
+.ui-calendar-toolbar a {cursor: pointer; display: inline-block; height: 30px; line-height: 30px; width: 69px; text-align: center; border-right: 1px solid #ccc; }
+.ui-calendar-toolbar a.ui-calendar-close { border-right-width: 0; }
+.preday, .nextday { color: #999; }
+.calendar-header { }
+.calendar-header b { width: 30px; float: left; display: block; text-align: center; }
+.ui-calendar li.focus { background-color: #288df0; color: #FFF; }
+.ui-calendar li.disabled { background-color: #ccc; }
+.clearfix:after { display: block; height: 0; clear: both; visibility: hidden; content: '.'; zoom:1;}
+.clearfix { display: block;zoom:1; }

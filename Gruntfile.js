@@ -64,13 +64,29 @@ module.exports = function(grunt) {
 		src: ['dist/calendar-jquery.js'],
 		dest: 'dist/calendar-jquery.min.js'
 	};
+	config.watch={
+		scripts:{
+			files:['src/**.*'],
+			tasks:['default'],
+			options:{
+				livereload: true
+			}
+		},
+		html:{
+			files:['example/**.*'],
+			tasks:['default'],
+			options:{
+				livereload: true
+			}
+		}
+	};
 	grunt.initConfig(config);
 	// 加载包含 "uglify" 任务的插件。
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	// 默认被执行的任务列表。
 	grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'concat', 'uglify:uplifyJquery']);
 };
