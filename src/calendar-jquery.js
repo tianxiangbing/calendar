@@ -5,7 +5,7 @@
  * Time: 18:29:43
  * Contact: 55342775@qq.com
  */
-(function($) {
+;(function($) {
 	$.fn.Calendar = function(settings) {
 		var list = [];
 		$(this).each(function() {
@@ -18,4 +18,4 @@
 		});
 		return list;
 	}
-})(jQuery);
+})(window.Zepto || window.jQuery);
