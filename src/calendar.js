@@ -6,8 +6,29 @@
  * Contact: 55342775@qq.com
  */
 ;
-(function($) {
-	window.Calendar = function() {
+(function(root, factory) {
+	//amd
+	if (typeof define === 'function' && define.amd) {
+		define(['$'], factory);
+	} else if (typeof exports === 'object') { //umd
+		module.exports = factory();
+	} else {
+		root.Calendar = factory(window.Zepto || window.jQuery || $);
+	}
+})(this, function($) {
+	$.fn.Calendar = function(settings) {
+		var list = [];
+		$(this).each(function() {
+			var calendar = new Calendar();
+			var options = $.extend({
+				target: $(this)
+			}, settings);
+			calendar.init(options);
+			list.push(calendar);
+		});
+		return list;
+	};
+	var Calendar = function() {
 		this.monthArr = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
 		this.dayArr = ['日', '一', '二', '三', '四', '五', '六'];
 		var rnd = Math.random().toString().replace('.', '');
@@ -328,4 +349,5 @@
 			return ('0' + n.toString()).substr(-2);
 		}
 	};
-})(window.Zepto || window.jQuery);
+	return Calendar;
+});

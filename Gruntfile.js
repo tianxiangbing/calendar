@@ -48,22 +48,26 @@ module.exports = function(grunt) {
 			flatten: true,
 			filter: 'isFile',
 		},
+		jquery:{
+			src: 'src/<%= pkg.name %>.js',
+			dest: 'dist/<%= pkg.name %>-jquery.js'
+		}
 	};
-	config.concat = {
-		options: {
-			stripBanners: true,
-			banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%=pkg.family%> - <%=pkg.author.url%> ' +
-				'<%= grunt.template.today("yyyy-mm-dd") %> */\n',
-		},
-		dist: {
-			src: ['src/calendar.js', 'src/calendar-jquery.js'],
-			dest: 'dist/calendar-jquery.js',
-		},
-	};
-	config.uglify.uplifyJquery = {
-		src: ['dist/calendar-jquery.js'],
-		dest: 'dist/calendar-jquery.min.js'
-	};
+	// config.concat = {
+	// 	options: {
+	// 		stripBanners: true,
+	// 		banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - <%=pkg.family%> - <%=pkg.author.url%> ' +
+	// 			'<%= grunt.template.today("yyyy-mm-dd") %> */\n',
+	// 	},
+	// 	dist: {
+	// 		src: ['src/calendar.js', 'src/calendar-jquery.js'],
+	// 		dest: 'dist/calendar-jquery.js',
+	// 	},
+	// };
+	// config.uglify.uplifyJquery = {
+	// 	src: ['dist/calendar-jquery.js'],
+	// 	dest: 'dist/calendar-jquery.min.js'
+	// };
 	config.watch={
 		scripts:{
 			files:['src/**.*'],
@@ -85,8 +89,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-concat');
+	// grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	// 默认被执行的任务列表。
-	grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'concat', 'uglify:uplifyJquery']);
+	grunt.registerTask('default', ['uglify', 'cssmin', 'copy']);
 };
