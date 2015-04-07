@@ -64,10 +64,10 @@ module.exports = function(grunt) {
 	// 		dest: 'dist/calendar-jquery.js',
 	// 	},
 	// };
-	// config.uglify.uplifyJquery = {
-	// 	src: ['dist/calendar-jquery.js'],
-	// 	dest: 'dist/calendar-jquery.min.js'
-	// };
+	config.uglify.uplifyJquery = {
+		src: ['dist/<%= pkg.name %>.js'],
+		dest: 'dist/<%= pkg.name %>-jquery.min.js'
+	};
 	config.watch={
 		scripts:{
 			files:['src/**.*'],
@@ -92,5 +92,5 @@ module.exports = function(grunt) {
 	// grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	// 默认被执行的任务列表。
-	grunt.registerTask('default', ['uglify', 'cssmin', 'copy']);
+	grunt.registerTask('default', ['uglify', 'cssmin', 'copy', 'uglify:uplifyJquery']);
 };
