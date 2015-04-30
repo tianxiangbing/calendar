@@ -107,11 +107,16 @@
 			this.isShow = true;
 			this.setPosition();
 			this.settings.show && this.settings.show(this.calendarContainer);
+			var _this = this;
+			this.timer = setInterval(function(){
+				_this.setPosition.call(_this);
+			},1000);
 		},
 		hide: function() {
 			this.calendarContainer.hide();
 			this.isShow = false;
 			this.settings.hide && this.settings.hide(this.calendarContainer);
+			clearInterval(this.timer);
 		},
 		setPosition: function() {
 			var x = 0,
@@ -199,6 +204,15 @@
 				})
 			}
 		},
+		actionFlow: function(obj, action) {
+			if (obj.siblings('.ui-calendar-flow').length) {
+				obj.siblings('.ui-calendar-flow').hide(300, function() {
+					obj[action](300);
+				});
+			} else {
+				obj[action](300);
+			}
+		},
 		go: {
 			'next-month': function() {
 				this.month += 1;
@@ -217,6 +231,65 @@
 			'prev-year': function() {
 				this.year -= 1;
 				this.changeDate();
+			},
+			'current-year': function(show) {
+				var _this = this;
+				if (!this.yearContainer) {
+					this.yearContainer = $('<div class="ui-year-list ui-calendar-flow"/>');
+					this.calendarContainer.append(this.yearContainer);
+					_this.actionFlow(_this.yearContainer, 'show');
+					this.yearContainer.on('click', 'div', function() {
+						var index = $(this).data('value');
+						_this.year = index;
+						_this.changeDate();
+						if (!$(this).hasClass('cross')) {
+							_this.actionFlow(_this.yearContainer, 'hide');
+						} else {
+							_this.go['current-year'].call(_this, true);
+						}
+					});
+				} else {
+					if (!show) {
+						_this.actionFlow(_this.yearContainer, 'toggle');
+					}
+				}
+				var yearTen = Math.floor(_this.year / 10);
+				this.yearContainer.html('');
+				this.yearContainer.append('<div class="cross prevtenyear" data-value="' + ((yearTen - 1).toString() + 9) + '">...</div>');
+				for (var i = 0, l = 10; i < l; i++) {
+					var y = yearTen.toString() + i;
+					var cls = '';
+					if (_this.year == y) {
+						cls = ' class="current" ';
+					}
+					this.yearContainer.append('<div ' + cls + ' data-value="' + y + '">' + y + '</div>');
+				};
+				this.yearContainer.append('<div class="cross nexttenyear" data-value="' + ((yearTen + 1).toString() + 0) + '">...</div>');
+			},
+			'current-month': function() {
+				var _this = this;
+				if (!this.monthContainer) {
+					this.monthContainer = $('<div class="ui-month-list ui-calendar-flow"/>');
+					this.calendarContainer.append(this.monthContainer);
+					_this.actionFlow(_this.monthContainer, 'show');
+					this.monthContainer.on('click', 'div', function() {
+						var index = $(this).data('value');
+						_this.month = index;
+						_this.changeDate();
+						_this.monthContainer.hide(300);
+					});
+				} else {
+					_this.actionFlow(_this.monthContainer, 'toggle');
+				}
+				this.monthContainer.html('');
+				for (var i = 0, l = this.monthArr.length; i < l; i++) {
+					var m = this.monthArr[i];
+					var cls = '';
+					if (_this.month == i) {
+						cls = ' class="current" ';
+					}
+					this.monthContainer.append('<div ' + cls + ' data-value="' + i + '">' + m + '</div>');
+				};
 			}
 		},
 		changeDate: function() {
@@ -309,6 +382,9 @@
 					className += ' focus';
 				}
 				if ((start && time < start) || (end && time > end)) {
+					className += " disabled";
+				}
+				if (this.settings.filter && !this.settings.filter(time)) {
 					className += " disabled";
 				}
 				list += '<li class="' + className + '" data-value="' + datavalue + '">' + i + '</li>';
