@@ -62,10 +62,13 @@ js日历控件
 		选择前触发方法，参数为(a)时间对象 ,(b)日历容器
 ###overdays:function(daysnum)
 		超出限定天数时的回调（多选时）
+###filter:function(time)
+		根据返回bool来过滤是否该日期可以选择，time为时间戳
 ***
 # Release History
-1. 2015-03-15  v1.0.1  添加jquery插件式写法
-2. 2015-03-12  v1.0.0  
+1.2015-04-30   v1.0.4  添加filter属性回调，过滤不可选择日期，添加年份和月份的快速选择
+2. 2015-03-15  v1.0.1  添加jquery插件式写法
+3. 2015-03-12  v1.0.0  
 ---
 Task submitted by [田想兵](http://www.lovewebgames.com)
 
