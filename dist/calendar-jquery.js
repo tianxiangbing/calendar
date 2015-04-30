@@ -87,8 +87,8 @@
 			this.date = this.defaultDate;
 			this.setRange(this.settings.range);
 			this.showToolbar();
-			this.formatDate();
-			this.renderHeader();
+			// this.formatDate();
+			// this.renderHeader();
 			this.bindEvent();
 			if (this.settings.target) {
 				this.hide();
@@ -104,6 +104,9 @@
 		},
 		show: function() {
 			this.calendarContainer.show();
+			this.date = this.defaultDate;
+			this.formatDate();
+			this.renderHeader();
 			this.isShow = true;
 			this.setPosition();
 			this.settings.show && this.settings.show(this.calendarContainer);
