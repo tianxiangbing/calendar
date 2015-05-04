@@ -37,7 +37,8 @@
 		this.settings = {};
 		this.isShow = false;
 		this.autohide = true;
-		this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a class="js-clear">清空</a><a class="ui-calendar-close">关闭</a></div>';
+		this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a class="js-clear">清空</a><a class="ui-calendar-today">现在</a><a class="ui-calendar-close">关闭</a></div>';
+		this.timeTpl = '<div class="ui-calendar-time clearfix"><select class="js-calendar-hours">时</select>:<select class="js-calendar-minutes">分</select>:<select class="js-calendar-second">秒</select></div>';
 		this.dateArr = [];
 		this.maxDays = 9999;
 	};
@@ -61,8 +62,9 @@
 				}
 			}
 			if (this.settings.focusDate && !this.settings.multiple) {
-				var focusDateArr = this.settings.focusDate.split(this.separator);
-				this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
+				var focusDateArr = this.settings.focusDate.split(' ')[0].split(this.separator);
+				var t = this.settings.focusDate.split(' ')[1]||"00:00:00";
+				this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2],t.split(':')[0],t.split(':')[1],t.split(':')[2]);
 			}
 			if (this.settings.focusDate && this.settings.multiple) {
 				var arr = this.settings.focusDate.split(',');
@@ -86,6 +88,11 @@
 			this.calendarContainer.css('zIndex', zIndex);
 			this.date = this.defaultDate;
 			this.setRange(this.settings.range);
+			if (this.settings.time) {
+				this.settings.toolbar = true;
+				this.autohide = false;
+				this.showTime();
+			}
 			this.showToolbar();
 			// this.formatDate();
 			// this.renderHeader();
@@ -102,6 +109,22 @@
 				this.calendarContainer.append(this.toolbarTpl);
 			}
 		},
+		showTime: function() {
+			this.calendarContainer.append(this.timeTpl);
+			var _this = this;
+			for (var i = 0, l = 60; i < l; i++) {
+				if (i < 24) {
+					$('.js-calendar-hours',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+				}
+				$('.js-calendar-minutes',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+				$('.js-calendar-second',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+			}
+			var value = this.date;
+			var t = _this._getTowNum(value.getHours()) + ":" + _this._getTowNum(value.getMinutes()) + ":" + _this._getTowNum(value.getSeconds());
+			$('.js-calendar-hours',this.calendarContainer).val(_this._getTowNum(value.getHours()));
+			$('.js-calendar-minutes',this.calendarContainer).val(_this._getTowNum(value.getMinutes()));
+			$('.js-calendar-second',this.calendarContainer).val(_this._getTowNum(value.getSeconds()));
+		},
 		show: function() {
 			this.calendarContainer.show();
 			this.date = this.defaultDate;
@@ -111,9 +134,9 @@
 			this.setPosition();
 			this.settings.show && this.settings.show(this.calendarContainer);
 			var _this = this;
-			this.timer = setInterval(function(){
+			this.timer = setInterval(function() {
 				_this.setPosition.call(_this);
-			},1000);
+			}, 1000);
 		},
 		hide: function() {
 			this.calendarContainer.hide();
@@ -138,6 +161,26 @@
 				});
 			}
 		},
+		setDate: function(value) {
+			var _this = this,
+				v;
+			if (typeof value === "object") {
+				_this.defaultDate = value;
+				v = value.getFullYear() + _this.separator + _this._getTowNum((value.getMonth() + 1)) + _this.separator + _this._getTowNum(value.getDate());
+				if (_this.settings.time) {
+					v += " " + _this._getTowNum(value.getHours()) + ":" + _this._getTowNum(value.getMinutes()) + ":" + _this._getTowNum(value.getSeconds());
+				}
+			} else {
+				var a = value.split(' ');
+				var d = a[0];
+				var t = a[1] || "00:00:00";
+				var focusDateArr = d.split(_this.separator);
+				_this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
+				v = value;
+			}
+			_this.date = _this.defaultDate;
+			return v;
+		},
 		bindEvent: function() {
 			var _this = this;
 			$('.ui-calendar-control[data-role]', _this.calendarContainer).click(function() {
@@ -153,9 +196,7 @@
 					return false;
 				};
 				var value = $(this).data('value');
-				var focusDateArr = value.split(_this.separator);
-				_this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
-				_this.date = _this.defaultDate;
+				_this.setDate(value);
 				if (_this.settings.multiple) {
 					if (!$(this).hasClass('focus')) {
 						if (_this.maxDays <= _this.dateArr.length) {
@@ -182,13 +223,26 @@
 			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function() {
 				if ($(this).hasClass('js-calendar-submit')) {
 					_this.settings.selected && _this.settings.selected(_this.dateArr, _this.calendarContainer);
+					if(_this.dateArr.length ===0){
+						_this.dateArr.push($('.focus',_this.calendarContainer).data('value'));
+					}
 					var arr = _this._toString(_this.dateArr);
 					value = arr.join(',');
+					if (_this.settings.time) {
+						value += " " + $('.js-calendar-hours',_this.calendarContainer).val() + ":" + $('.js-calendar-minutes',_this.calendarContainer).val() + ":" + $('.js-calendar-second',_this.calendarContainer).val()
+					}
 					$(_this.settings.target).val(value);
 					_this.hide();
 				}
 				if ($(this).hasClass('ui-calendar-close')) {
 					_this.hide();
+				}
+				if ($(this).hasClass('ui-calendar-today')) {
+					var now = new Date();
+					var value = _this.setDate(now);
+					_this.date = now;
+					_this.hide();
+					$(_this.settings.target).val(value);
 				}
 				if ($(this).hasClass('js-clear')) {
 					_this.dateArr = [];
@@ -381,7 +435,7 @@
 						className += ' focus';
 					}
 				} else
-				if (time == this.defaultDate.getTime()) {
+				if (time == +new Date(this.defaultDate.getFullYear(), this.defaultDate.getMonth(), this.defaultDate.getDate())) {
 					className += ' focus';
 				}
 				if ((start && time < start) || (end && time > end)) {

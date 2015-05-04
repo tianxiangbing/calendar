@@ -1,18 +1,17 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>日历</title>
-		<link rel="stylesheet" type="text/css" href="../dist/calendar.min.css">
+		<link rel="stylesheet" type="text/css" href="../src/calendar.css">
 	</head>
 	<body>
-
 		<input type="text" id="calendar" style="width:300px;" value="2015-03-15,2015-03-16"/>
 		<script src="../dist/jquery-1.9.1.min.js"></script>
 		<script src="../src/calendar.js"></script>
 		<input type="text" class="calendar" value="2015-03-14"/>
 		<input type="text" class="calendar2" value="2015-03-18"/>
 		工作日：<input type="text" class="calendar3" value=""/>
-		<div class="calendar4"></div>
+		时间：<input type="text" class="calendar4" value="2015-05-20 21:34:29"/><input type="text" class="calendar4" />
 		<script>
 		var calendar = new Calendar();
 		calendar.init({
@@ -28,12 +27,13 @@
 		$(".calendar2").Calendar();
 		$(".calendar3").Calendar({filter:function(time){
 			var date = new Date(time);
-			// console.log(date.getDay())
 			if(date.getDay()==0||date.getDay()==6){
 				return false;
 			}
 			return true;
 		}});
+		$(".calendar4").Calendar({time:true});
+		$(".calendar5").Calendar({time:true});
 		</script>
 	</body>
 </html>
