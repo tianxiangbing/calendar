@@ -54,6 +54,7 @@
 			var _this = this;
 			this.settings = $.extend({}, this.settings, settings);
 			this.maxDays = this.settings.maxdays || this.maxDays;
+			this.mutilSeparator =this.settings.mutilSeparator||","
 			if (this.settings.target && $(this.settings.target).size()) {
 				if ($(this.settings.target)[0].nodeType === 1) {
 					this.settings.focusDate = this.settings.focusDate || $(this.settings.target).val();
@@ -227,7 +228,7 @@
 						_this.dateArr.push($('.focus',_this.calendarContainer).data('value'));
 					}
 					var arr = _this._toString(_this.dateArr);
-					value = arr.join(',');
+					value = arr.join(_this.mutilSeparator);
 					if (_this.settings.time) {
 						value += " " + $('.js-calendar-hours',_this.calendarContainer).val() + ":" + $('.js-calendar-minutes',_this.calendarContainer).val() + ":" + $('.js-calendar-second',_this.calendarContainer).val()
 					}
