@@ -49,6 +49,8 @@ js日历控件
 	可选时分秒,此值为true时，toolbar也为true,默认当前时间
 ###mutilSeparator:  
 	多选日期时的分隔符，默认逗号分隔
+###zIndex:
+	设置zIndex
 ##方法
 ###setRange:function(range)
 	设置日期可选范围的方法
@@ -63,6 +65,8 @@ js日历控件
 	选中后的回调事件，参数为(a)时间对象 ,(b)日历容器
 ####beforeSelect:function(a,b)
 	选择前触发方法，参数为(a)时间对象 ,(b)日历容器
+####afterSelected:function(o,a,b)
+	选择赋值后触发方法，参数为(o)为target, (a)时间对象 ,(b)日历容器
 ###overdays:function(daysnum)
 	超出限定天数时的回调（多选时）
 ###filter:function(time)

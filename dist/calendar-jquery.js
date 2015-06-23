@@ -54,7 +54,7 @@
 			var _this = this;
 			this.settings = $.extend({}, this.settings, settings);
 			this.maxDays = this.settings.maxdays || this.maxDays;
-			this.mutilSeparator =this.settings.mutilSeparator||","
+			this.mutilSeparator = this.settings.mutilSeparator || ","
 			if (this.settings.target && $(this.settings.target).size()) {
 				if ($(this.settings.target)[0].nodeType === 1) {
 					this.settings.focusDate = this.settings.focusDate || $(this.settings.target).val();
@@ -64,8 +64,8 @@
 			}
 			if (this.settings.focusDate && !this.settings.multiple) {
 				var focusDateArr = this.settings.focusDate.split(' ')[0].split(this.separator);
-				var t = this.settings.focusDate.split(' ')[1]||"00:00:00";
-				this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2],t.split(':')[0],t.split(':')[1],t.split(':')[2]);
+				var t = this.settings.focusDate.split(' ')[1] || "00:00:00";
+				this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
 			}
 			if (this.settings.focusDate && this.settings.multiple) {
 				var arr = this.settings.focusDate.split(',');
@@ -115,16 +115,16 @@
 			var _this = this;
 			for (var i = 0, l = 60; i < l; i++) {
 				if (i < 24) {
-					$('.js-calendar-hours',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+					$('.js-calendar-hours', this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
 				}
-				$('.js-calendar-minutes',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
-				$('.js-calendar-second',this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+				$('.js-calendar-minutes', this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
+				$('.js-calendar-second', this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
 			}
 			var value = this.date;
 			var t = _this._getTowNum(value.getHours()) + ":" + _this._getTowNum(value.getMinutes()) + ":" + _this._getTowNum(value.getSeconds());
-			$('.js-calendar-hours',this.calendarContainer).val(_this._getTowNum(value.getHours()));
-			$('.js-calendar-minutes',this.calendarContainer).val(_this._getTowNum(value.getMinutes()));
-			$('.js-calendar-second',this.calendarContainer).val(_this._getTowNum(value.getSeconds()));
+			$('.js-calendar-hours', this.calendarContainer).val(_this._getTowNum(value.getHours()));
+			$('.js-calendar-minutes', this.calendarContainer).val(_this._getTowNum(value.getMinutes()));
+			$('.js-calendar-second', this.calendarContainer).val(_this._getTowNum(value.getSeconds()));
 		},
 		show: function() {
 			this.calendarContainer.show();
@@ -218,19 +218,20 @@
 				if (_this.settings.target && $(_this.settings.target).size() && $(_this.settings.target)[0].nodeType === 1 && _this.autohide) {
 					$(_this.settings.target).val(value);
 					_this.hide();
+					_this.settings.afterSelected && _this.settings.afterSelected($(_this.settings.target), _this.date, _this.calendarContainer);
 				}
 				return false;
 			});
 			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function() {
 				if ($(this).hasClass('js-calendar-submit')) {
 					_this.settings.selected && _this.settings.selected(_this.dateArr, _this.calendarContainer);
-					if(_this.dateArr.length ===0){
-						_this.dateArr.push($('.focus',_this.calendarContainer).data('value'));
+					if (_this.dateArr.length === 0) {
+						_this.dateArr.push($('.focus', _this.calendarContainer).data('value'));
 					}
 					var arr = _this._toString(_this.dateArr);
 					value = arr.join(_this.mutilSeparator);
 					if (_this.settings.time) {
-						value += " " + $('.js-calendar-hours',_this.calendarContainer).val() + ":" + $('.js-calendar-minutes',_this.calendarContainer).val() + ":" + $('.js-calendar-second',_this.calendarContainer).val()
+						value += " " + $('.js-calendar-hours', _this.calendarContainer).val() + ":" + $('.js-calendar-minutes', _this.calendarContainer).val() + ":" + $('.js-calendar-second', _this.calendarContainer).val()
 					}
 					$(_this.settings.target).val(value);
 					_this.hide();
