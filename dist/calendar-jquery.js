@@ -251,6 +251,7 @@
 					$(_this.settings.target).val('');
 					_this.formatDate();
 				}
+				_this.settings.afterSelected && _this.settings.afterSelected($(_this.settings.target), _this.date, _this.calendarContainer);
 			});
 			if (_this.settings.target) {
 				$(_this.settings.target).bind('click', function() {
