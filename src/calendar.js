@@ -156,6 +156,14 @@
 					y = $(this.settings.target).prev().offset().top + $(this.settings.target).prev().outerHeight();
 					x = $(this.settings.target).prev().offset().left;
 				}
+				var st = $(window).scrollTop();
+				var winY = $(window).height();
+				if (y + this.calendarContainer.outerHeight() > st + winY) {
+					var	tmp =y - this.calendarContainer.outerHeight() - $(this.settings.target).outerHeight();
+					if(tmp>0){
+						y = tmp;
+					}
+				}
 				this.calendarContainer.css({
 					top: y,
 					left: x
