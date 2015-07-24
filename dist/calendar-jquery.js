@@ -137,7 +137,7 @@
 			var _this = this;
 			this.timer = setInterval(function() {
 				_this.setPosition.call(_this);
-			}, 1000);
+			}, 500);
 		},
 		hide: function() {
 			this.calendarContainer.hide();
