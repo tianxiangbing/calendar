@@ -11,7 +11,7 @@
 		<input type="text" class="calendar" value="2015-03-14"/>
 		<input type="text" class="calendar2" value="2015-03-18"/>
 		工作日：<input type="text" class="calendar3" value=""/>
-		时间：<input type="text" class="calendar4" value="2015-05-20 21:34:29"/><input type="text" class="calendar4" />
+		时间：<input type="text" class="calendar4" /><input type="text" class="calendar5" />
 		<br>
 		<br>
 		<br>
@@ -104,8 +104,16 @@
 			}
 			return true;
 		}});
-		$(".calendar4").Calendar({time:true});
-		$(".calendar5").Calendar({time:true});
+		var c_start = $(".calendar4").Calendar({time:true,
+			afterSelected: function(obj, date) {
+				$(obj).blur();
+				c_end.setRange([date, null]);
+			}})[0];
+		var c_end = $(".calendar5").Calendar({time:true,
+			afterSelected: function(obj, date) {
+				$(obj).blur();
+				c_start.setRange([null, date]);
+			}})[0];
 		</script>
 	</body>
 </html>
