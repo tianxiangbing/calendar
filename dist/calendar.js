@@ -86,9 +86,6 @@
 			if (this.settings.multiple) {
 				this.settings.toolbar = true;
 			}
-			if (this.settings.toolbar) {
-				this.autohide = false;
-			}
 			var zIndex = this.settings.zIndex || 1;
 			this.calendarContainer.css('zIndex', zIndex);
 			this.date = this.defaultDate;
@@ -97,6 +94,10 @@
 				this.settings.toolbar = true;
 				this.autohide = false;
 				this.showTime();
+				this.showToolbar();
+			}
+			if (this.settings.toolbar) {
+				this.autohide = false;
 				this.showToolbar();
 			}
 			// this.formatDate();
@@ -110,7 +111,7 @@
 			}
 		},
 		showToolbar: function() {
-			if (this.settings.toolbar) {
+			if (this.settings.toolbar && $('.ui-calendar-toolbar',this.calendarContainer).size()==0 )  {
 				this.calendarContainer.append(this.toolbarTpl);
 			}
 		},
@@ -268,6 +269,7 @@
 				}
 				if ($(this).hasClass('js-clear')) {
 					_this.dateArr = [];
+					_this.date=null;
 					$(_this.settings.target).val('');
 					_this.formatDate();
 				}
@@ -398,7 +400,7 @@
 			this.date = new Date(this.year, this.month, this.day);
 		},
 		formatDate: function() {
-			var date = this.date;
+			var date = this.date||this.defaultDate;
 			this.year = date.getFullYear();
 			this.month = date.getMonth();
 			this.day = date.getDate();
@@ -412,7 +414,7 @@
 			if (firstDay > 0) {
 				list += this._getDay(preDateNum - firstDay + 1, preDateNum, "preday", preDate);
 			}
-			list += this._getDay(1, dayNum, '', this.date);
+			list += this._getDay(1, dayNum, '', date);
 			var lastDay = (new Date(this.year, this.month, dayNum)).getDay();
 			list += this._getDay(1, 6 - lastDay, "nextday", nextDate);
 			list += '</ul>';
