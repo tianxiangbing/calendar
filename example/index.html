@@ -13,6 +13,8 @@
 		工作日：<input type="text" class="calendar3" value=""/>
 		时间：<input type="text" class="calendar4" /><input type="text" class="calendar5" />
 		时间：<input type="text" class="calendar6" /><input type="text" class="calendar7" />
+		选月份：<input type="text" class="calendar8" />
+		只选时分不选秒:<input type="text" class="calendar9" />
 		<br>
 		<br>
 		<br>
@@ -92,6 +94,8 @@
 				$(obj).blur();
 				c_start2.setRange([null, date]);
 			}})[0];
+		$(".calendar8").Calendar({onlyYM:true});
+		$(".calendar9").Calendar({onlyHm:true,time:true});
 		</script>
 	</body>
 </html>

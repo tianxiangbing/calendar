@@ -51,6 +51,10 @@ js日历控件
 	多选日期时的分隔符，默认逗号分隔
 ###zIndex:
 	设置zIndex
+###onlyYM:bool  `false`
+	只选年月
+###onlyHm	bool `false`
+	只选时分
 ##方法
 ###setRange:function(range)
 	设置日期可选范围的方法
@@ -71,7 +75,6 @@ js日历控件
 	超出限定天数时的回调（多选时）
 ###filter:function(time)
 	根据返回bool来过滤是否该日期可以选择，time为时间戳
-
 ***
 # Release History
 1.2015-04-30   v1.0.4  添加filter属性回调，过滤不可选择日期，添加年份和月份的快速选择

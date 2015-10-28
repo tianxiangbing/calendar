@@ -38,7 +38,7 @@
 		this.isShow = false;
 		this.autohide = true;
 		this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a class="js-clear">清空</a><a class="ui-calendar-today">现在</a><a class="ui-calendar-close">关闭</a></div>';
-		this.timeTpl = '<div class="ui-calendar-time clearfix"><select class="js-calendar-hours">时</select>:<select class="js-calendar-minutes">分</select>:<select class="js-calendar-second">秒</select></div>';
+		this.timeTpl = '<div class="ui-calendar-time clearfix"><select class="js-calendar-hours">时</select>:<select class="js-calendar-minutes">分</select><s>:</s><select class="js-calendar-second">秒</select></div>';
 		this.dateArr = [];
 		this.maxDays = 9999;
 	};
@@ -55,6 +55,9 @@
 					this.settings.focusDate = $(this.settings.target).val() || this.settings.focusDate || '';
 				} else {
 					this.settings.focusDate = $(this.settings.target).prev().val() || this.settings.focusDate || '';
+				}
+				if(this.settings.onlyYM &&$(this.settings.target).val() ){
+					this.settings.focusDate =$(this.settings.target).val() +this.separator+"01";
 				}
 			}
 			if (this.settings.focusDate && !this.settings.multiple) {
@@ -133,6 +136,9 @@
 			$('.js-calendar-hours', this.calendarContainer).val(_this._getTowNum(value.getHours()));
 			$('.js-calendar-minutes', this.calendarContainer).val(_this._getTowNum(value.getMinutes()));
 			$('.js-calendar-second', this.calendarContainer).val(_this._getTowNum(value.getSeconds()));
+			if(_this.settings.onlyHm){
+				$('.js-calendar-second', this.calendarContainer).hide().val('00').prev().hide();
+			}
 		},
 		show: function() {
 			this.getDefaultDate();
@@ -151,6 +157,12 @@
 				this.settings.toolbar = true;
 				this.autohide = false;
 				this.showTime();
+			}
+			if(this.settings.onlyYM){
+				this.settings.toolbar = false;
+				$('[data-role="current-month"]',this.calendarContainer).trigger('click');
+				$('.ui-month-list',this.calendarContainer).show();
+				$('.c_days',this.calendarContainer).hide();
 			}
 		},
 		hide: function() {
@@ -382,14 +394,21 @@
 				if (!this.monthContainer) {
 					this.monthContainer = $('<div class="ui-month-list ui-calendar-flow"/>');
 					this.calendarContainer.append(this.monthContainer);
-					_this.actionFlow(_this.monthContainer, 'show');
+					if(!_this.settings.onlyYM){
+						_this.actionFlow(_this.monthContainer, 'show');
+					}
 					this.monthContainer.on('click', 'div', function() {
 						var index = $(this).data('value');
 						_this.month = index;
 						_this.changeDate();
-						_this.monthContainer.hide(300);
+						if(!_this.settings.onlyYM){
+							_this.monthContainer.hide(300);
+						}else{
+							$(_this.settings.target).val(_this.year.toString()+_this.separator+(_this.month+1));
+							_this.hide();
+						}
 					});
-				} else {
+				} else if(!this.settings.onlyYM){
 					_this.actionFlow(_this.monthContainer, 'toggle');
 				}
 				this.monthContainer.html('');
