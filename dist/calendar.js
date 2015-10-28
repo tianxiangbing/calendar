@@ -81,7 +81,8 @@
 			var _this = this;
 			this.settings = $.extend({}, this.settings, settings);
 			this.maxDays = this.settings.maxdays || this.maxDays;
-			this.mutilSeparator = this.settings.mutilSeparator || ","
+			this.mutilSeparator = this.settings.mutilSeparator || ",";
+			$(this.settings.target).attr('readonly', 'readonly');
 			this.getDefaultDate();
 			if (this.settings.multiple) {
 				this.settings.toolbar = true;
@@ -111,7 +112,7 @@
 			}
 		},
 		showToolbar: function() {
-			if (this.settings.toolbar && $('.ui-calendar-toolbar',this.calendarContainer).size()==0 )  {
+			if (this.settings.toolbar && $('.ui-calendar-toolbar', this.calendarContainer).size() == 0) {
 				this.calendarContainer.append(this.toolbarTpl);
 			}
 		},
@@ -244,7 +245,7 @@
 				return false;
 			});
 			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function() {
-				if ($(this).hasClass('js-calendar-submit')) {
+				if ($(this).hasClass('js-calendar-submit')) { //点确定
 					_this.settings.selected && _this.settings.selected(_this.dateArr, _this.calendarContainer);
 					if (_this.dateArr.length === 0) {
 						_this.dateArr.push($('.focus', _this.calendarContainer).data('value'));
@@ -260,7 +261,7 @@
 				if ($(this).hasClass('ui-calendar-close')) {
 					_this.hide();
 				}
-				if ($(this).hasClass('ui-calendar-today')) {
+				if ($(this).hasClass('ui-calendar-today')) { //点现在
 					var now = new Date();
 					var value = _this.setDate(now);
 					_this.date = now;
@@ -269,9 +270,29 @@
 				}
 				if ($(this).hasClass('js-clear')) {
 					_this.dateArr = [];
-					_this.date=null;
+					_this.date = null;
 					$(_this.settings.target).val('');
 					_this.formatDate();
+				}
+				var value = $(_this.settings.target).val();
+				var currentValue = new Date(value)
+				if (_this.settings.time && currentValue) {
+					//时间时，判断
+					var start = _this.range[0],
+						startDate,
+						end = _this.range[1],
+						endDate;
+					if (start) {
+						start =+new Date(Date.parse(start));
+					};
+					if (end) {
+						end = +new Date(Date.parse(end));
+					}
+					if ((currentValue < start && start) || (currentValue > end && end)) {
+						_this.date = null;
+						$(_this.settings.target).val('');
+						alert('所选日期超出限定范围内');
+					}
 				}
 				_this.settings.afterSelected && _this.settings.afterSelected($(_this.settings.target), _this.date, _this.calendarContainer);
 			});
@@ -400,7 +421,7 @@
 			this.date = new Date(this.year, this.month, this.day);
 		},
 		formatDate: function() {
-			var date = this.date||this.defaultDate;
+			var date = this.date || this.defaultDate;
 			this.year = date.getFullYear();
 			this.month = date.getMonth();
 			this.day = date.getDate();
@@ -448,12 +469,16 @@
 		_getDay: function(startNum, dayNum, cls, date) {
 			var list = '';
 			var start = this.range[0],
-				end = this.range[1];
+				startDate,
+				end = this.range[1],
+				endDate;
 			if (start) {
-				start = Date.parse(start);
+				start = new Date(Date.parse(start));
+				startDate = +new Date(start.getFullYear(), start.getMonth(), start.getDate());
 			};
 			if (end) {
-				end = Date.parse(end);
+				end = new Date(Date.parse(end));
+				endDate = +new Date(end.getFullYear(), end.getMonth(), end.getDate());
 			}
 			for (var i = startNum; i <= dayNum; i++) {
 				var className = cls || "";
@@ -471,7 +496,7 @@
 				if (time == +new Date(this.defaultDate.getFullYear(), this.defaultDate.getMonth(), this.defaultDate.getDate())) {
 					className += ' focus';
 				}
-				if ((start && time < start) || (end && time > end)) {
+				if ((startDate && time < startDate) || (endDate && time > endDate)) {
 					className += " disabled";
 				}
 				if (this.settings.filter && !this.settings.filter(time)) {

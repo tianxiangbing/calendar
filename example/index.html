@@ -12,39 +12,7 @@
 		<input type="text" class="calendar2" value="2015-03-18"/>
 		工作日：<input type="text" class="calendar3" value=""/>
 		时间：<input type="text" class="calendar4" /><input type="text" class="calendar5" />
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		时间：<input type="text" class="calendar6" /><input type="text" class="calendar7" />
 		<br>
 		<br>
 		<br>
@@ -113,6 +81,16 @@
 			afterSelected: function(obj, date) {
 				$(obj).blur();
 				c_start.setRange([null, date]);
+			}})[0];
+		var c_start2 = $(".calendar6").Calendar({
+			afterSelected: function(obj, date) {
+				$(obj).blur();
+				c_end2.setRange([date, null]);
+			}})[0];
+		var c_end2 = $(".calendar7").Calendar({
+			afterSelected: function(obj, date) {
+				$(obj).blur();
+				c_start2.setRange([null, date]);
 			}})[0];
 		</script>
 	</body>
