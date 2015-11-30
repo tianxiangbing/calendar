@@ -339,19 +339,23 @@
 		go: {
 			'next-month': function() {
 				this.month += 1;
+				this.day = 1;
 				this._getDate();
 				this.formatDate();
 				this.renderHeader();
 			},
 			'prev-month': function() {
 				this.month -= 1;
+				this.day = 1;
 				this.changeDate();
 			},
 			'next-year': function() {
+				this.day = 1;
 				this.year += 1;
 				this.changeDate();
 			},
 			'prev-year': function() {
+				this.day = 1;
 				this.year -= 1;
 				this.changeDate();
 			},
