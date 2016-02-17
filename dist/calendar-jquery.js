@@ -56,8 +56,8 @@
 				} else {
 					this.settings.focusDate = $(this.settings.target).prev().val() || this.settings.focusDate || '';
 				}
-				if(this.settings.onlyYM &&$(this.settings.target).val() ){
-					this.settings.focusDate =$(this.settings.target).val() +this.separator+"01";
+				if (this.settings.onlyYM && $(this.settings.target).val()) {
+					this.settings.focusDate = $(this.settings.target).val() + this.separator + "01";
 				}
 			}
 			if (this.settings.focusDate && !this.settings.multiple) {
@@ -136,7 +136,7 @@
 			$('.js-calendar-hours', this.calendarContainer).val(_this._getTowNum(value.getHours()));
 			$('.js-calendar-minutes', this.calendarContainer).val(_this._getTowNum(value.getMinutes()));
 			$('.js-calendar-second', this.calendarContainer).val(_this._getTowNum(value.getSeconds()));
-			if(_this.settings.onlyHm){
+			if (_this.settings.onlyHm) {
 				$('.js-calendar-second', this.calendarContainer).hide().val('00').prev().hide();
 			}
 		},
@@ -158,11 +158,11 @@
 				this.autohide = false;
 				this.showTime();
 			}
-			if(this.settings.onlyYM){
+			if (this.settings.onlyYM) {
 				this.settings.toolbar = false;
-				$('[data-role="current-month"]',this.calendarContainer).trigger('click');
-				$('.ui-month-list',this.calendarContainer).show();
-				$('.c_days',this.calendarContainer).hide();
+				$('[data-role="current-month"]', this.calendarContainer).trigger('click');
+				$('.ui-month-list', this.calendarContainer).show();
+				$('.c_days', this.calendarContainer).hide();
 			}
 		},
 		hide: function() {
@@ -295,7 +295,7 @@
 						end = _this.range[1],
 						endDate;
 					if (start) {
-						start =+new Date(Date.parse(start));
+						start = +new Date(Date.parse(start));
 					};
 					if (end) {
 						end = +new Date(Date.parse(end));
@@ -374,6 +374,9 @@
 						} else {
 							_this.go['current-year'].call(_this, true);
 						}
+						if (_this.settings.onlyYM) {
+							_this.actionFlow(_this.monthContainer, 'show');
+						}
 					});
 				} else {
 					if (!show) {
@@ -398,22 +401,24 @@
 				if (!this.monthContainer) {
 					this.monthContainer = $('<div class="ui-month-list ui-calendar-flow"/>');
 					this.calendarContainer.append(this.monthContainer);
-					if(!_this.settings.onlyYM){
+					if (!_this.settings.onlyYM) {
 						_this.actionFlow(_this.monthContainer, 'show');
 					}
 					this.monthContainer.on('click', 'div', function() {
 						var index = $(this).data('value');
 						_this.month = index;
 						_this.changeDate();
-						if(!_this.settings.onlyYM){
+						if (!_this.settings.onlyYM) {
 							_this.monthContainer.hide(300);
-						}else{
-							$(_this.settings.target).val(_this.year.toString()+_this.separator+(_this.month+1));
+						} else {
+							$(_this.settings.target).val(_this.year.toString() + _this.separator + (_this.month + 1));
 							_this.hide();
 						}
 					});
-				} else if(!this.settings.onlyYM){
+				} else if (!this.settings.onlyYM) {
 					_this.actionFlow(_this.monthContainer, 'toggle');
+				} else {
+					_this.actionFlow(_this.monthContainer, 'show');
 				}
 				this.monthContainer.html('');
 				for (var i = 0, l = this.monthArr.length; i < l; i++) {
@@ -438,7 +443,9 @@
 			for (var i = 0, l = this.dayArr.length; i < l; i++) {
 				daylist += '<b>' + this.dayArr[i] + '</b>';
 			};
-			$('.calendar-header', this.calendarContainer).html(daylist);
+			if (!this.settings.onlyYM) {
+				$('.calendar-header', this.calendarContainer).html(daylist);
+			}
 		},
 		_getDate: function() {
 			this.date = new Date(this.year, this.month, this.day);
