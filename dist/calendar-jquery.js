@@ -371,11 +371,11 @@
 						_this.changeDate();
 						if (!$(this).hasClass('cross')) {
 							_this.actionFlow(_this.yearContainer, 'hide');
+							if (_this.settings.onlyYM) {
+								_this.actionFlow(_this.monthContainer, 'show');
+							}
 						} else {
 							_this.go['current-year'].call(_this, true);
-						}
-						if (_this.settings.onlyYM) {
-							_this.actionFlow(_this.monthContainer, 'show');
 						}
 					});
 				} else {
