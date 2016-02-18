@@ -94,7 +94,9 @@
 				$(obj).blur();
 				c_start2.setRange([null, date]);
 			}})[0];
-		$(".calendar8").Calendar({onlyYM:true});
+		$(".calendar8").Calendar({onlyYM:true,selected:function(){
+			console.log($(this.settings.target))
+		}});
 		$(".calendar9").Calendar({onlyHm:true,time:true});
 		</script>
 	</body>
