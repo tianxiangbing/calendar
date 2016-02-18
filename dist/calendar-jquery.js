@@ -413,6 +413,7 @@
 						} else {
 							$(_this.settings.target).val(_this.year.toString() + _this.separator + (_this.month + 1));
 							_this.hide();
+							_this.settings.selected && _this.settings.selected.call(_this,_this.date, _this.calendarContainer);
 						}
 					});
 				} else if (!this.settings.onlyYM) {
