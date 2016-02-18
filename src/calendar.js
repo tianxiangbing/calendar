@@ -248,17 +248,17 @@
 				}
 				_this.formatDate();
 				_this.renderHeader();
-				_this.settings.selected && _this.settings.selected(_this.date, _this.calendarContainer);
+				_this.settings.selected && _this.settings.selected.call(_this,_this.date, _this.calendarContainer);
 				if (_this.settings.target && $(_this.settings.target).size() && $(_this.settings.target)[0].nodeType === 1 && _this.autohide) {
 					$(_this.settings.target).val(value);
 					_this.hide();
-					_this.settings.afterSelected && _this.settings.afterSelected($(_this.settings.target), _this.date, _this.calendarContainer);
+					_this.settings.afterSelected && _this.settings.afterSelected.call(_this,$(_this.settings.target), _this.date, _this.calendarContainer);
 				}
 				return false;
 			});
 			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function() {
 				if ($(this).hasClass('js-calendar-submit')) { //点确定
-					_this.settings.selected && _this.settings.selected(_this.dateArr, _this.calendarContainer);
+					_this.settings.selected && _this.settings.selected.call(_this,_this.dateArr, _this.calendarContainer);
 					if (_this.dateArr.length === 0) {
 						_this.dateArr.push($('.focus', _this.calendarContainer).data('value'));
 					}
@@ -306,7 +306,7 @@
 						alert('所选日期超出限定范围内');
 					}
 				}
-				_this.settings.afterSelected && _this.settings.afterSelected($(_this.settings.target), _this.date, _this.calendarContainer);
+				_this.settings.afterSelected && _this.settings.afterSelected.call(_this,$(_this.settings.target), _this.date, _this.calendarContainer);
 			});
 			if (_this.settings.target) {
 				$(_this.settings.target).bind('click', function() {
