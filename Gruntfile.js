@@ -22,6 +22,10 @@ module.exports = function(grunt) {
 		build: {
 			src: ['src/<%= pkg.name %>.js', '!*.min.css'],
 			dest: 'dist/<%= pkg.name %>.min.js'
+		},
+		publish:{
+			src:['src/calendar.js'],
+			dest:'calendar.js'
 		}
 	};
 	config.cssmin = {
@@ -36,6 +40,15 @@ module.exports = function(grunt) {
 				src: ['*.css', '!*.min.css'],
 				dest: 'dist',
 				ext: '.min.css'
+			}]
+		},
+		puglish: {
+			files: [{
+				expand: true,
+				cwd: 'src',
+				src: ['*.css', '!*.min.css'],
+				dest: './',
+				ext: '.css'
 			}]
 		}
 	};

@@ -1,9 +1,12 @@
 ﻿/*
- * Created with Sublime Text 2.
+ * Created with vs code.
+ * github: https://github.com/tianxiangbing/calendar   记得加星星
+ * demo地址: http://www.lovewebgames.com/jsmodule/index.html
  * User: 田想兵
  * Date: 2015-03-09
  * Time: 17:02:02
  * Contact: 55342775@qq.com
+ * Desc: 确保代码最新及时修复bug，请去github上下载最新源码 https://github.com/tianxiangbing/calendar
  */
 ;
 (function(root, factory) {
@@ -343,21 +346,25 @@
 				this._getDate();
 				this.formatDate();
 				this.renderHeader();
+				this.settings.goCallback.call(this,'next-month',this.date);
 			},
 			'prev-month': function() {
 				this.month -= 1;
 				this.day = 1;
 				this.changeDate();
+				this.settings.goCallback.call(this,'prev-month',this.date);
 			},
 			'next-year': function() {
 				this.day = 1;
 				this.year += 1;
 				this.changeDate();
+				this.settings.goCallback.call(this,'next-year',this.date);
 			},
 			'prev-year': function() {
 				this.day = 1;
 				this.year -= 1;
 				this.changeDate();
+				this.settings.goCallback.call(this,'prev-year',this.date);
 			},
 			'current-year': function(show) {
 				var _this = this;
@@ -395,6 +402,7 @@
 					this.yearContainer.append('<div ' + cls + ' data-value="' + y + '">' + y + '</div>');
 				};
 				this.yearContainer.append('<div class="cross nexttenyear" data-value="' + ((yearTen + 1).toString() + 0) + '">...</div>');
+				this.settings.goCallback.call(this,'current-year',this.date);
 			},
 			'current-month': function() {
 				var _this = this;
@@ -430,6 +438,7 @@
 					}
 					this.monthContainer.append('<div ' + cls + ' data-value="' + i + '">' + m + '</div>');
 				};
+				this.settings.goCallback.call(this,'current-month',this.date);
 			}
 		},
 		changeDate: function() {

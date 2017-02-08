@@ -3,6 +3,7 @@
   "name": "calendar",
   "description": "js 日历",
   "version": "1.0.3",
+  "main":"calendar.js",
   "author": {
     "name": "田想兵",
     "url": "http://www.lovewebgames.com/jsmodule/calendar.html"

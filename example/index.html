@@ -5,6 +5,10 @@
 		<link rel="stylesheet" type="text/css" href="../src/calendar.css">
 	</head>
 	<body>
+		
+ * github: <a href="https://github.com/tianxiangbing/mobile-select-area">https://github.com/tianxiangbing/mobile-select-area</a>
+ <br/>
+ * demo地址: <a href="http://www.lovewebgames.com/jsmodule/index.html">http://www.lovewebgames.com/jsmodule/index.html</a>
 		<input type="text" id="calendar" style="width:300px;" value="2015-03-15,2015-03-16"/>
 		<script src="../dist/jquery-1.9.1.min.js"></script>
 		<script src="../src/calendar.js"></script>
@@ -61,6 +65,9 @@
 			range: ['2015-3-5', '2015-3-25'],
 			multiple: true,
 			maxdays: 5,
+			goCallback:function(type,date){
+				console.log(type,date,this)
+			},
 			overdays: function(a) {
 				alert('添加已达上限 ' + a + ' 天');
 			}

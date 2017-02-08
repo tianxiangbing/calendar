@@ -75,6 +75,8 @@ js日历控件
 	超出限定天数时的回调（多选时）
 ###filter:function(time)
 	根据返回bool来过滤是否该日期可以选择，time为时间戳
+###goCallback:function(type,date)
+	日期切换时的回调，type事件类型，date日期
 ***
 # Release History
 1.2015-04-30   v1.0.4  添加filter属性回调，过滤不可选择日期，添加年份和月份的快速选择
