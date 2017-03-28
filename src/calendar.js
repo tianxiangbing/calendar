@@ -9,7 +9,7 @@
  * Desc: 确保代码最新及时修复bug，请去github上下载最新源码 https://github.com/tianxiangbing/calendar
  */
 ;
-(function(root, factory) {
+(function (root, factory) {
 	//amd
 	if (typeof define === 'function' && define.amd) {
 		define(['$'], factory);
@@ -18,10 +18,10 @@
 	} else {
 		root.Calendar = factory(window.Zepto || window.jQuery || $);
 	}
-})(this, function($) {
-	$.fn.Calendar = function(settings) {
+})(this, function ($) {
+	$.fn.Calendar = function (settings) {
 		var list = [];
-		$(this).each(function() {
+		$(this).each(function () {
 			var calendar = new Calendar();
 			var options = $.extend({
 				target: $(this)
@@ -31,7 +31,7 @@
 		});
 		return list;
 	};
-	var Calendar = function() {
+	var Calendar = function () {
 		this.monthArr = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
 		this.dayArr = ['日', '一', '二', '三', '四', '五', '六'];
 		var rnd = Math.random().toString().replace('.', '');
@@ -48,10 +48,10 @@
 	Calendar.prototype = {
 		separator: '-',
 		defaultDate: new Date(),
-		setRange: function(range) {
+		setRange: function (range) {
 			this.range = $.extend([null, null], range);
 		},
-		getDefaultDate: function() {
+		getDefaultDate: function () {
 			var _this = this;
 			if (this.settings.target && $(this.settings.target).size()) {
 				if ($(this.settings.target)[0].nodeType === 1) {
@@ -81,7 +81,7 @@
 				}
 			}
 		},
-		init: function(settings) {
+		init: function (settings) {
 			$('body').append('<div class="ui-calendar clearfix" id="' + this.id + '"><div class="ui-calendar-pannel clearfix" data-role="pannel"><span class="ui-calendar-control" data-role="prev-year">&lt;&lt;</span><span class="ui-calendar-control" data-role="prev-month">&lt;</span><span class="ui-calendar-control month" data-role="current-month"></span><span class="ui-calendar-control year" data-role="current-year"></span><span class="ui-calendar-control" data-role="next-month">&gt;</span><span class="ui-calendar-control" data-role="next-year">&gt;&gt;</span></div><div class="calendar-header clearfix"></div><div class="c_days clearfix"></div></div>');
 			this.calendarContainer = $('#' + this.id);
 			var _this = this;
@@ -117,16 +117,18 @@
 				this.show();
 			}
 		},
-		showToolbar: function() {
+		showToolbar: function () {
 			if (this.settings.toolbar && $('.ui-calendar-toolbar', this.calendarContainer).size() == 0) {
 				this.calendarContainer.append(this.toolbarTpl);
 			}
 		},
-		showTime: function() {
+		showTime: function () {
 			if (this.calendarContainer.find('.ui-calendar-time').size() == 0) {
 				this.calendarContainer.append(this.timeTpl);
 			}
 			var _this = this;
+			$('.js-calendar-minutes', this.calendarContainer).html('');
+			$('.js-calendar-second', this.calendarContainer).html('');
 			for (var i = 0, l = 60; i < l; i++) {
 				if (i < 24) {
 					$('.js-calendar-hours', this.calendarContainer).append('<option>' + _this._getTowNum(i) + '</option>');
@@ -143,7 +145,7 @@
 				$('.js-calendar-second', this.calendarContainer).hide().val('00').prev().hide();
 			}
 		},
-		show: function() {
+		show: function () {
 			this.getDefaultDate();
 			this.calendarContainer.show();
 			this.date = this.defaultDate;
@@ -153,7 +155,7 @@
 			this.setPosition();
 			this.settings.show && this.settings.show(this.calendarContainer);
 			var _this = this;
-			this.timer = setInterval(function() {
+			this.timer = setInterval(function () {
 				_this.setPosition.call(_this);
 			}, 500);
 			if (this.settings.time) {
@@ -168,13 +170,13 @@
 				$('.c_days', this.calendarContainer).hide();
 			}
 		},
-		hide: function() {
+		hide: function () {
 			this.calendarContainer.hide();
 			this.isShow = false;
 			this.settings.hide && this.settings.hide(this.calendarContainer);
 			clearInterval(this.timer);
 		},
-		setPosition: function() {
+		setPosition: function () {
 			var x = 0,
 				y = 0;
 			if (this.settings.target && $(this.settings.target).size()) {
@@ -199,7 +201,7 @@
 				});
 			}
 		},
-		setDate: function(value) {
+		setDate: function (value) {
 			var _this = this,
 				v;
 			if (typeof value === "object") {
@@ -219,16 +221,16 @@
 			_this.date = _this.defaultDate;
 			return v;
 		},
-		bindEvent: function() {
+		bindEvent: function () {
 			var _this = this;
-			$('.ui-calendar-control[data-role]', _this.calendarContainer).click(function() {
+			$('.ui-calendar-control[data-role]', _this.calendarContainer).click(function () {
 				_this.go[$(this).data('role')].call(_this);
 				return false;
 			})
-			$(_this.calendarContainer).click(function() {
+			$(_this.calendarContainer).click(function () {
 				return false;
 			});
-			$('.c_days', _this.calendarContainer).delegate('li', 'click', function() {
+			$('.c_days', _this.calendarContainer).delegate('li', 'click', function () {
 				_this.settings.beforeSelect && _this.settings.beforeSelect(_this.date, _this.calendarContainer);
 				if ($(this).hasClass('disabled')) {
 					return false;
@@ -251,17 +253,17 @@
 				}
 				_this.formatDate();
 				_this.renderHeader();
-				_this.settings.selected && _this.settings.selected.call(_this,_this.date, _this.calendarContainer);
+				_this.settings.selected && _this.settings.selected.call(_this, _this.date, _this.calendarContainer);
 				if (_this.settings.target && $(_this.settings.target).size() && $(_this.settings.target)[0].nodeType === 1 && _this.autohide) {
 					$(_this.settings.target).val(value);
 					_this.hide();
-					_this.settings.afterSelected && _this.settings.afterSelected.call(_this,$(_this.settings.target), _this.date, _this.calendarContainer);
+					_this.settings.afterSelected && _this.settings.afterSelected.call(_this, $(_this.settings.target), _this.date, _this.calendarContainer);
 				}
 				return false;
 			});
-			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function() {
+			$('.ui-calendar-toolbar', _this.calendarContainer).delegate('a', 'click', function () {
 				if ($(this).hasClass('js-calendar-submit')) { //点确定
-					_this.settings.selected && _this.settings.selected.call(_this,_this.dateArr, _this.calendarContainer);
+					_this.settings.selected && _this.settings.selected.call(_this, _this.dateArr, _this.calendarContainer);
 					if (_this.dateArr.length === 0) {
 						_this.dateArr.push($('.focus', _this.calendarContainer).data('value'));
 					}
@@ -309,10 +311,10 @@
 						alert('所选日期超出限定范围内');
 					}
 				}
-				_this.settings.afterSelected && _this.settings.afterSelected.call(_this,$(_this.settings.target), _this.date, _this.calendarContainer);
+				_this.settings.afterSelected && _this.settings.afterSelected.call(_this, $(_this.settings.target), _this.date, _this.calendarContainer);
 			});
 			if (_this.settings.target) {
-				$(_this.settings.target).bind('click', function() {
+				$(_this.settings.target).bind('click', function () {
 					if ($(this).hasClass('disabled') || $(this).filter('[disabled="true"]').size() > 0) {
 						return;
 					}
@@ -320,19 +322,19 @@
 					_this.show();
 					return false;
 				});
-				$(document).click(function() {
+				$(document).click(function () {
 					_this.isShow && _this.hide()
 				})
 			}
-			$(document).keydown(function(e) {
+			$(document).keydown(function (e) {
 				if (e.keyCode === 27) {
 					_this.hide();
 				}
 			});
 		},
-		actionFlow: function(obj, action) {
+		actionFlow: function (obj, action) {
 			if (obj.siblings('.ui-calendar-flow').length) {
-				obj.siblings('.ui-calendar-flow').hide(300, function() {
+				obj.siblings('.ui-calendar-flow').hide(300, function () {
 					obj[action](300);
 				});
 			} else {
@@ -340,39 +342,39 @@
 			}
 		},
 		go: {
-			'next-month': function() {
+			'next-month': function () {
 				this.month += 1;
 				this.day = 1;
 				this._getDate();
 				this.formatDate();
 				this.renderHeader();
-				this.settings.goCallback.call(this,'next-month',this.date);
+				this.settings.goCallback.call(this, 'next-month', this.date);
 			},
-			'prev-month': function() {
+			'prev-month': function () {
 				this.month -= 1;
 				this.day = 1;
 				this.changeDate();
-				this.settings.goCallback.call(this,'prev-month',this.date);
+				this.settings.goCallback.call(this, 'prev-month', this.date);
 			},
-			'next-year': function() {
+			'next-year': function () {
 				this.day = 1;
 				this.year += 1;
 				this.changeDate();
-				this.settings.goCallback.call(this,'next-year',this.date);
+				this.settings.goCallback.call(this, 'next-year', this.date);
 			},
-			'prev-year': function() {
+			'prev-year': function () {
 				this.day = 1;
 				this.year -= 1;
 				this.changeDate();
-				this.settings.goCallback.call(this,'prev-year',this.date);
+				this.settings.goCallback.call(this, 'prev-year', this.date);
 			},
-			'current-year': function(show) {
+			'current-year': function (show) {
 				var _this = this;
 				if (!this.yearContainer) {
 					this.yearContainer = $('<div class="ui-year-list ui-calendar-flow"/>');
 					this.calendarContainer.append(this.yearContainer);
 					_this.actionFlow(_this.yearContainer, 'show');
-					this.yearContainer.on('click', 'div', function() {
+					this.yearContainer.on('click', 'div', function () {
 						var index = $(this).data('value');
 						_this.year = index;
 						_this.changeDate();
@@ -402,9 +404,9 @@
 					this.yearContainer.append('<div ' + cls + ' data-value="' + y + '">' + y + '</div>');
 				};
 				this.yearContainer.append('<div class="cross nexttenyear" data-value="' + ((yearTen + 1).toString() + 0) + '">...</div>');
-				this.settings.goCallback.call(this,'current-year',this.date);
+				this.settings.goCallback.call(this, 'current-year', this.date);
 			},
-			'current-month': function() {
+			'current-month': function () {
 				var _this = this;
 				if (!this.monthContainer) {
 					this.monthContainer = $('<div class="ui-month-list ui-calendar-flow"/>');
@@ -412,7 +414,7 @@
 					if (!_this.settings.onlyYM) {
 						_this.actionFlow(_this.monthContainer, 'show');
 					}
-					this.monthContainer.on('click', 'div', function() {
+					this.monthContainer.on('click', 'div', function () {
 						var index = $(this).data('value');
 						_this.month = index;
 						_this.changeDate();
@@ -421,7 +423,7 @@
 						} else {
 							$(_this.settings.target).val(_this.year.toString() + _this.separator + (_this.month + 1));
 							_this.hide();
-							_this.settings.selected && _this.settings.selected.call(_this,_this.date, _this.calendarContainer);
+							_this.settings.selected && _this.settings.selected.call(_this, _this.date, _this.calendarContainer);
 						}
 					});
 				} else if (!this.settings.onlyYM) {
@@ -438,15 +440,15 @@
 					}
 					this.monthContainer.append('<div ' + cls + ' data-value="' + i + '">' + m + '</div>');
 				};
-				this.settings.goCallback.call(this,'current-month',this.date);
+				this.settings.goCallback && this.settings.goCallback.call(this, 'current-month', this.date);
 			}
 		},
-		changeDate: function() {
+		changeDate: function () {
 			this._getDate();
 			this.formatDate();
 			this.renderHeader();
 		},
-		renderHeader: function() {
+		renderHeader: function () {
 			$('[data-role="current-month"]', this.calendarContainer).html(this.monthArr[this.month])
 			$('[data-role="current-year"]', this.calendarContainer).html(this.year);
 			var daylist = '';
@@ -457,10 +459,10 @@
 				$('.calendar-header', this.calendarContainer).html(daylist);
 			}
 		},
-		_getDate: function() {
+		_getDate: function () {
 			this.date = new Date(this.year, this.month, this.day);
 		},
-		formatDate: function() {
+		formatDate: function () {
 			var date = this.date || this.defaultDate;
 			this.year = date.getFullYear();
 			this.month = date.getMonth();
@@ -481,7 +483,7 @@
 			list += '</ul>';
 			$('#' + this.id).find(".c_days").html(list);
 		},
-		_toString: function(dateArr) {
+		_toString: function (dateArr) {
 			var arr = [];
 			var len = dateArr.length;
 			for (var i = 0; i < len; i++) {
@@ -506,7 +508,7 @@
 			}
 			return arr;
 		},
-		_getDay: function(startNum, dayNum, cls, date) {
+		_getDay: function (startNum, dayNum, cls, date) {
 			var list = '';
 			var start = this.range[0],
 				startDate,
@@ -533,9 +535,9 @@
 						className += ' focus';
 					}
 				} else
-				if (time == +new Date(this.defaultDate.getFullYear(), this.defaultDate.getMonth(), this.defaultDate.getDate())) {
-					className += ' focus';
-				}
+					if (time == +new Date(this.defaultDate.getFullYear(), this.defaultDate.getMonth(), this.defaultDate.getDate())) {
+						className += ' focus';
+					}
 				if ((startDate && time < startDate) || (endDate && time > endDate)) {
 					className += " disabled";
 				}
@@ -546,7 +548,7 @@
 			};
 			return list;
 		},
-		_dateInArr: function(date, arr) {
+		_dateInArr: function (date, arr) {
 			for (var i = arr.length - 1; i >= 0; i--) {
 				var item = arr[i];
 				var idate = item;
@@ -560,7 +562,7 @@
 				}
 			};
 		},
-		_removeDate: function(date, arr) {
+		_removeDate: function (date, arr) {
 			var newArr = [];
 			for (var i = arr.length - 1; i >= 0; i--) {
 				var item = arr[i];
@@ -576,7 +578,7 @@
 			};
 			this.dateArr = newArr;
 		},
-		_getTowNum: function(n) {
+		_getTowNum: function (n) {
 			return ('0' + n.toString()).substr(-2);
 		}
 	};
