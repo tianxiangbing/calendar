@@ -1,6 +1,19 @@
 # calendar
 js日历控件
 例子见[DEMO](http://www.lovewebgames.com/jsmodule/calendar.html)  
+![](example/demo1.jpg)
+![](example/demo2.jpg)
+![](example/demo3.jpg)
+
+
+## 说明
+本日历插件与其他插件所不同之处：
+1. 最少的代码实现最便捷的功能，所有源码不足600行，便于维护
+2. 功能完善，覆盖绝大多数的应用场景，别人有我更优，别人无我有
+3. 可以多选单个日期，可以只选月份，也可以只选时分。
+4. 完善的可扩展性，基本上所有的操作都有对应的回调方法，便与扩展其他功能。
+5. 用得好的话加个星星吧
+
 # 用法
 
 	<input type="text" id="calendar" value="2015-04-15"/>
