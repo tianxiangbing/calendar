@@ -14,6 +14,11 @@ js日历控件
 4. 完善的可扩展性，基本上所有的操作都有对应的回调方法，便与扩展其他功能。
 5. 用得好的话加个星星吧
 
+# npm安装 
+```bash
+npm install jqcalendar
+```
+
 # 用法
 
 	<input type="text" id="calendar" value="2015-04-15"/>
