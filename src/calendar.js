@@ -53,7 +53,7 @@
 		},
 		getDefaultDate: function () {
 			var _this = this;
-			if (this.settings.target && $(this.settings.target).size()) {
+			if (this.settings.target && $(this.settings.target).length) {
 				if ($(this.settings.target)[0].nodeType === 1) {
 					this.settings.focusDate = $(this.settings.target).val() || this.settings.focusDate || '';
 				} else {
@@ -118,12 +118,12 @@
 			}
 		},
 		showToolbar: function () {
-			if (this.settings.toolbar && $('.ui-calendar-toolbar', this.calendarContainer).size() == 0) {
+			if (this.settings.toolbar && $('.ui-calendar-toolbar', this.calendarContainer).length == 0) {
 				this.calendarContainer.append(this.toolbarTpl);
 			}
 		},
 		showTime: function () {
-			if (this.calendarContainer.find('.ui-calendar-time').size() == 0) {
+			if (this.calendarContainer.find('.ui-calendar-time').length == 0) {
 				this.calendarContainer.append(this.timeTpl);
 			}
 			var _this = this;
@@ -179,7 +179,7 @@
 		setPosition: function () {
 			var x = 0,
 				y = 0;
-			if (this.settings.target && $(this.settings.target).size()) {
+			if (this.settings.target && $(this.settings.target).length) {
 				if ($(this.settings.target)[0].nodeType === 1) {
 					y = $(this.settings.target).offset().top + $(this.settings.target).outerHeight();
 					x = $(this.settings.target).offset().left;
@@ -254,7 +254,7 @@
 				_this.formatDate();
 				_this.renderHeader();
 				_this.settings.selected && _this.settings.selected.call(_this, _this.date, _this.calendarContainer);
-				if (_this.settings.target && $(_this.settings.target).size() && $(_this.settings.target)[0].nodeType === 1 && _this.autohide) {
+				if (_this.settings.target && $(_this.settings.target).length && $(_this.settings.target)[0].nodeType === 1 && _this.autohide) {
 					$(_this.settings.target).val(value);
 					_this.hide();
 					_this.settings.afterSelected && _this.settings.afterSelected.call(_this, $(_this.settings.target), _this.date, _this.calendarContainer);
@@ -315,7 +315,7 @@
 			});
 			if (_this.settings.target) {
 				$(_this.settings.target).bind('click', function () {
-					if ($(this).hasClass('disabled') || $(this).filter('[disabled="true"]').size() > 0) {
+					if ($(this).hasClass('disabled') || $(this).filter('[disabled="true"]').length > 0) {
 						return;
 					}
 					$(document).trigger('click');
