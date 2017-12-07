@@ -70,6 +70,7 @@
 			}
 			if (this.settings.focusDate && this.settings.multiple) {
 				var arr = this.settings.focusDate.split(',');
+				this.dateArr = [];
 				for (var i = arr.length - 1; i >= 0; i--) {
 					var item = arr[i];
 					var focusDateArr = item.split(this.separator);
@@ -287,6 +288,7 @@
 				}
 				if ($(this).hasClass('js-clear')) {
 					_this.dateArr = [];
+					_this.settings.focusDate='';
 					_this.date = null;
 					$(_this.settings.target).val('');
 					_this.formatDate();
