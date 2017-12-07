@@ -37,7 +37,7 @@
 		var rnd = Math.random().toString().replace('.', '');
 		this.id = 'calendar_' + rnd;
 		this.calendarContainer;
-		this.settings = {};
+		this.settings = {goCallback:function(){}};
 		this.isShow = false;
 		this.autohide = true;
 		this.toolbarTpl = '<div class="ui-calendar-toolbar clearfix"><a class="js-calendar-submit">确定</a><a class="js-clear">清空</a><a class="ui-calendar-today">现在</a><a class="ui-calendar-close">关闭</a></div>';
