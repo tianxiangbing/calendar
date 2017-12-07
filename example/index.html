@@ -66,6 +66,9 @@
 			range: ['2015-3-5', '2015-3-25'],
 			multiple: true,
 			maxdays: 5,
+			goCallback:function(type,date){
+				console.log(type,date,this)
+			},
 			overdays: function(a) {
 				alert('添加已达上限 ' + a + ' 天');
 			}
