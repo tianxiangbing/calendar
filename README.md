@@ -1,6 +1,6 @@
 # calendar
 js日历控件
-例子见[DEMO](http://www.lovewebgames.com/jsmodule/calendar.html)  
+例子见[DEMO](http://tianxiangbing.github.io/calendar/example/)  
 ![](example/demo1.jpg)
 ![](example/demo2.jpg)
 ![](example/demo3.jpg)

@@ -2,11 +2,11 @@
   "family": "tianxiangbing",
   "name": "jqcalendar",
   "description": "js 日历",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main":"calendar.js",
   "author": {
     "name": "田想兵",
-    "url": "http://www.lovewebgames.com/jsmodule/calendar.html"
+    "url": "https://github.com/tianxiangbing/calendar"
   },
   "scripts":{
     "prepublish": "grunt"
