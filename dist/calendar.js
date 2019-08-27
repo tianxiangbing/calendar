@@ -66,7 +66,7 @@
 			if (this.settings.focusDate && !this.settings.multiple) {
 				var focusDateArr = this.settings.focusDate.split(' ')[0].split(this.separator);
 				var t = this.settings.focusDate.split(' ')[1] || "00:00:00";
-				this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
+				this.defaultDate = new Date(focusDateArr[0], Number(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
 			}
 			if (this.settings.focusDate && this.settings.multiple) {
 				var arr = this.settings.focusDate.split(',');
@@ -74,7 +74,7 @@
 				for (var i = arr.length - 1; i >= 0; i--) {
 					var item = arr[i];
 					var focusDateArr = item.split(this.separator);
-					this.dateArr.push(new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]));
+					this.dateArr.push(new Date(focusDateArr[0], Number(focusDateArr[1]) - 1, focusDateArr[2]));
 				};
 				this.defaultDate = this.dateArr[0];
 				if (!_this._dateInArr(_this.defaultDate, _this.dateArr)) {
@@ -216,7 +216,7 @@
 				var d = a[0];
 				var t = a[1] || "00:00:00";
 				var focusDateArr = d.split(_this.separator);
-				_this.defaultDate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
+				_this.defaultDate = new Date(focusDateArr[0], Number(focusDateArr[1]) - 1, focusDateArr[2], t.split(':')[0], t.split(':')[1], t.split(':')[2]);
 				v = value;
 			}
 			_this.date = _this.defaultDate;
@@ -556,7 +556,7 @@
 				var idate = item;
 				if (typeof item === "string") {
 					var focusDateArr = item.split(this.separator);
-					idate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
+					idate = new Date(focusDateArr[0], Number(focusDateArr[1]) - 1, focusDateArr[2]);
 				}
 				if (date.getTime() == idate.getTime()) {
 					return true;
@@ -571,7 +571,7 @@
 				var idate = item;
 				if (typeof item === "string") {
 					var focusDateArr = item.split(this.separator);
-					idate = new Date(focusDateArr[0], parseInt(focusDateArr[1]) - 1, focusDateArr[2]);
+					idate = new Date(focusDateArr[0], Number(focusDateArr[1]) - 1, focusDateArr[2]);
 				}
 				if (date.getTime() == idate.getTime()) {
 					continue;
@@ -581,7 +581,8 @@
 			this.dateArr = newArr;
 		},
 		_getTowNum: function (n) {
-			return ('0' + n.toString()).substr(-2);
+			var num='0' + n.toString();
+			return num.length==2?num: num.substr(1,2);
 		}
 	};
 	return Calendar;
