@@ -419,6 +419,7 @@
 					this.monthContainer.on('click', 'div', function () {
 						var index = $(this).data('value');
 						_this.month = index;
+						_this.day = 1;
 						_this.changeDate();
 						if (!_this.settings.onlyYM) {
 							_this.monthContainer.hide(300);

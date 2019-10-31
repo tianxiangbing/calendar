@@ -2,7 +2,7 @@
   "family": "tianxiangbing",
   "name": "jqcalendar",
   "description": "js 日历",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "calendar.js",
   "author": {
     "name": "田想兵",
