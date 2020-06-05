@@ -2,7 +2,7 @@
  * @Descripttion: 
  * @Author: tianxiangbing
  * @Date: 2019-08-27 14:27:37
- * @LastEditTime: 2019-10-31 10:09:45
+ * @LastEditTime: 2020-06-05 17:25:29
  * @github: https://github.com/tianxiangbing
  -->
 <!DOCTYPE html>
@@ -110,9 +110,14 @@
 				$(obj).blur();
 				c_start2.setRange([null, date]);
 			}})[0];
-		$(".calendar8").Calendar({onlyYM:true,selected:function(){
-			console.log($(this.settings.target))
-		}});
+		$(".calendar8").Calendar({onlyYM:true,
+			selected:function(date,calendarContainer){
+				var maxData = new Date(2020,5);
+				if(date>maxData){
+					alert('超出最大值')
+					$(this.settings.target).val('')
+				}
+			}});
 		$(".calendar9").Calendar({onlyHm:true,time:true});
 		</script>
 	</body>
